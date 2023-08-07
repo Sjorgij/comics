@@ -40,7 +40,7 @@ def post_picture(picture, post_message, params):
 def create_vk_post(picture_description, picture_path):
     load_dotenv()
     group_id = os.environ["GROUP_ID"]
-    access_token = os.environ["TOKEN"]
+    access_token = os.environ["VK_TOKEN"]
     params = {
         "access_token": access_token,
         "group_id": group_id,
