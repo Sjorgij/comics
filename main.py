@@ -6,8 +6,10 @@ from create_vk_post import create_vk_post
 
 def main():
     comix_description, comics_path = download_comics()
-    create_vk_post(comix_description, comics_path)
-    os.remove(comics_path)
+    try:
+        create_vk_post(comix_description, comics_path)
+    finally:
+        os.remove(comics_path)
 
 
 if __name__ == "__main__":

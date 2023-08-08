@@ -17,7 +17,7 @@ pip install -r requirements.txt
  
 ### Как получить
 
-Для получения токена требуется создать [standalone приложение ВКонтакте](https://vk.com/dev) и получить [токен](https://vk.com/dev/implicit_flow_user)
+Для получения токена требуется создать [standalone приложение ВКонтакте](https://vk.com/dev) и пройти процедуру [implicit flow](https://vk.com/dev/implicit_flow_user)
 
 ## Пример запуска программы:
 ```
