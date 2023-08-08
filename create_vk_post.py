@@ -5,6 +5,7 @@ import os
 def request_vk_api(method, params):
     url = f"https://api.vk.com/method/{method}"
     response = requests.get(url, params=params)
+    response.raise_for_status()
     return response.json()
 
 
