@@ -60,5 +60,4 @@ def create_vk_post(picture_description, picture_path, group_id, access_token):
     upload_server, picture, picture_hash = upload_picture(upload_url, picture_path)
     picture_owner_id, picture_id = save_uploaded_picture(access_token, group_id, api_version, upload_server, picture, picture_hash)
     request_log = post_picture(group_id, picture_owner_id, picture_id, access_token, api_version, picture_description)
-    if "error" in request_log.keys():
-        print(f"Ошибка! Код ошибки: {request_log['error']['error_code']}, сообщение от сервиса: {request_log['error']['error_msg']}")
+    return request_log

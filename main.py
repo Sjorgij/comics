@@ -11,9 +11,11 @@ def main():
     access_token = os.environ["VK_TOKEN"]
     comix_description, comics_path = download_comic()
     try:
-        create_vk_post(comix_description, comics_path, group_id, access_token)
+        request_log = create_vk_post(comix_description, comics_path, group_id, access_token)
     finally:
         os.remove(comics_path)
+    if "error" in request_log.keys():
+        return f"Ошибка! Код ошибки: {request_log['error']['error_code']}, сообщение от сервиса: {request_log['error']['error_msg']}"
 
 
 if __name__ == "__main__":
