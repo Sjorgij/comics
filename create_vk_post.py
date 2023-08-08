@@ -8,8 +8,8 @@ def get_upload_server(params):
     return response.json()["response"]["upload_url"]
 
 
-def upload_picture(url, picture):
-    with open(picture, 'rb') as file:
+def upload_picture(url, picture_path):
+    with open(picture_path, 'rb') as file:
         files = {
             "photo": file,
         }
