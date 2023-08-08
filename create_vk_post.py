@@ -1,5 +1,4 @@
 import requests
-from dotenv import load_dotenv
 import os
 
 
@@ -37,10 +36,7 @@ def post_picture(picture, post_message, params):
     return request_vk_api("wall.post", params.copy())
 
 
-def create_vk_post(picture_description, picture_path):
-    load_dotenv()
-    group_id = os.environ["GROUP_ID"]
-    access_token = os.environ["VK_TOKEN"]
+def create_vk_post(picture_description, picture_path, group_id, access_token):
     params = {
         "access_token": access_token,
         "group_id": group_id,
