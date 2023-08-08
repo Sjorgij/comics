@@ -3,7 +3,7 @@ from pathlib import Path
 from random import randint
 
 
-def fetch_random_comics_number():
+def fetch_random_comic_number():
     url = "https://xkcd.com/info.0.json"
     response = requests.get(url)
     response.raise_for_status()
@@ -12,7 +12,7 @@ def fetch_random_comics_number():
     return random_comix_num
 
 
-def download_comics(comix_num=fetch_random_comics_number()):
+def download_comic(comix_num=fetch_random_comic_number()):
     url = f"https://xkcd.com/{comix_num}/info.0.json"
     response = requests.get(url)
     response.raise_for_status()
