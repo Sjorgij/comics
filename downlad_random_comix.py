@@ -1,4 +1,5 @@
 import requests
+from pathlib import Path
 from random import randint
 
 
@@ -18,7 +19,7 @@ def download_comics(comix_num=fetch_random_comics_number()):
     comics = response.json()
     comics_name = comics["title"]
     comics_description = comics["alt"]
-    comics_save_path = f"comics/{comics_name}.png"
+    comics_save_path = Path.cwd() / "comics" / f"{comics_name}.png"
     with open(comics_save_path, "wb") as image:
         picture = requests.get(comics["img"])
         picture.raise_for_status()
