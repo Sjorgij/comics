@@ -1,11 +1,11 @@
 import requests
 
 
-def request_vk_api(method, params):
-    url = f"https://api.vk.com/method/{method}"
+def get_upload_server(params):
+    url = f"https://api.vk.com/method/photos.getWallUploadServer"
     response = requests.get(url, params=params)
     response.raise_for_status()
-    return response.json()
+    return response.json()["response"]["upload_url"]
 
 
 def upload_picture(url, picture):
@@ -20,7 +20,10 @@ def upload_picture(url, picture):
 
 def save_uploaded_picture(params, picture):
     params.update(picture)
-    return request_vk_api("photos.saveWallPhoto", params.copy())
+    url = "https://api.vk.com/method/photos.saveWallPhoto"
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response.json()["response"][0]
 
 
 def post_picture(picture, post_message, params):
@@ -32,8 +35,10 @@ def post_picture(picture, post_message, params):
     }
     params.update(params_extension)
     params.pop("group_id")
-
-    return request_vk_api("wall.post", params.copy())
+    url = "https://api.vk.com/method/wall.post"
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response.json()
 
 
 def create_vk_post(picture_description, picture_path, group_id, access_token):
@@ -42,9 +47,9 @@ def create_vk_post(picture_description, picture_path, group_id, access_token):
         "group_id": group_id,
         "v": 5.131
     }
-    upload_url = request_vk_api("photos.getWallUploadServer", params.copy())["response"]["upload_url"]
+    upload_url = get_upload_server(params.copy())
     uploaded_picture = upload_picture(upload_url, picture_path)
-    saved_picture = save_uploaded_picture(params.copy(), uploaded_picture)["response"][0]
+    saved_picture = save_uploaded_picture(params.copy(), uploaded_picture)
     request_log = post_picture(saved_picture, picture_description, params.copy())
     if "error" in request_log.keys():
         print(f"Ошибка! Код ошибки: {request_log['error']['error_code']}, сообщение от сервиса: {request_log['error']['error_msg']}")
