@@ -20,8 +20,8 @@ def download_comics(comix_num=fetch_random_comics_number()):
     comics_name = comics["title"]
     comics_description = comics["alt"]
     comics_save_path = Path.cwd() / "comics" / f"{comics_name}.png"
+    picture = requests.get(comics["img"])
+    picture.raise_for_status()
     with open(comics_save_path, "wb") as image:
-        picture = requests.get(comics["img"])
-        picture.raise_for_status()
         image.write(picture.content)
     return comics_description, comics_save_path
